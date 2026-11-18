@@ -1,0 +1,1613 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { VEREIN_POSTAL_ADDRESS } from '@/lib/verein-data'
+import SiteNav from '@/components/SiteNav'
+import SiteFooter from '@/components/SiteFooter'
+import BackToTop from '@/components/BackToTop'
+import FaqAccordion from '@/components/FaqAccordion'
+import VideoSection from '@/components/VideoSection'
+import BunnyVideoSektion, { type BunnyVideo } from '@/components/BunnyVideoSektion'
+import AktiengameCTA from '@/components/AktiengameCTA'
+import LernzieleTeaser from '@/components/LernzieleTeaser'
+import KonsumfallenCTA from '@/components/KonsumfallenCTA'
+import ContactForm from '@/components/ContactForm'
+import NewsletterSignup from '@/components/NewsletterSignup'
+
+export const metadata: Metadata = {
+  title: 'Skills-UP! | Finanzbildung für Schulen in Österreich',
+  description: 'Fertige Unterrichtsmodule, Praxissimulationen und ein Lehrkräfte-Dashboard für AHS, HAK, HTL, HLW, BAfEP, BASOP und PTS. Lehrplankonform, DSGVO-sicher, sofort einsetzbar.',
+  openGraph: {
+    title: 'Skills-UP! | Finanzbildung für österreichische Schulen',
+    description: 'Fertige Unterrichtsmodule, Praxissimulationen und ein Lehrkräfte-Dashboard. Lehrplankonform, DSGVO-sicher, sofort einsetzbar. Für AHS, HAK, HTL, HLW, BAfEP, PTS und Berufsschulen.',
+    images: ['/fotos/skillsUP-1.jpg'],
+  },
+  twitter: { card: 'summary_large_image' },
+}
+
+/* ── Partner / Award logos ─────────────────────────────── */
+const partnerLogos = [
+  { src: '/fotos/Logo%20Hochschule%20Burgenland.jpg', alt: 'Hochschule Burgenland' },
+  { src: '/fotos/MEGA%20Bildungsstiftung%20Logo.jpeg', alt: 'MEGA Bildungsstiftung' },
+  { src: '/fotos/logo-finanzbildungsstrategie.png', alt: 'Nationale Finanzbildungsstrategie' },
+  { src: '/fotos/logo-guetesiegel.png', alt: 'Gütesiegel Lern-Apps' },
+  { src: '/fotos/Logo%20Ovos.jpeg', alt: 'Ovos' },
+  { src: '/fotos/TGW%20Future%20Wings.png', alt: 'TGW Future Wings' },
+  { src: '/fotos/TGW%20Logistics%20Logo.png', alt: 'TGW Logistics' },
+  { src: '/fotos/Bildungsdirketion%20Burgenland.jpg', alt: 'Bildungsdirektion Burgenland' },
+  { src: '/fotos/Schule%20Morgen%20Privatstifung.png', alt: 'Schule Morgen Privatstiftung' },
+]
+
+/* ── Program previews ───────────────────────────────────── */
+const programPics = [
+  { src: '/fotos/Einblick%20ins%20Programm%201.png', alt: 'Interaktive Gruppenübung im Skills-UP! Kurs' },
+  { src: '/fotos/Einblick%20ins%20Programm%202.png', alt: 'Jugendliche beim digitalen Lernpfad' },
+  { src: '/fotos/Einblick%20ins%20Programm%203.png', alt: 'KI-Simulation im Skills-UP! Workshop' },
+  { src: '/fotos/Einblick%20ins%20Programm%204.png', alt: 'Gruppenarbeit zu digitalen Werkzeugen' },
+  { src: '/fotos/Einblick%20ins%20Programm%205.png', alt: 'Präsentation im Skills-UP! Training' },
+  { src: '/fotos/Workshops.png', alt: 'Skills-UP! Workshop für Schulen und Lehrkräfte' },
+]
+
+/* ── Programm-Bausteine ─────────────────────────────────── */
+const angebote = [
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #4a2d8a 0%, #6b4db0 100%)',
+    title: '15 Module Finanzwissen',
+    tag: '15 oder 50 Min',
+    zielgruppe: 'Kurz- & Langversion',
+    maxPersonen: 'Lehrplankonform',
+    foerderbar: true,
+    text: 'Von Geldbiografie und Lohnabrechnung über Budgetplanung bis zu Schuldenprävention und Krypto-Mythen. Jedes Modul gibt es in zwei Längen, flexibel einsetzbar.',
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="5 3 19 12 5 21 5 3" />
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #1a5c4e 0%, #2a8a76 100%)',
+    title: '17 Simulationen',
+    tag: 'Das Herzstück',
+    zielgruppe: 'Risikofrei & interaktiv',
+    maxPersonen: 'Lernen durch Tun',
+    foerderbar: true,
+    text: 'Virtuelles Depot eröffnen, Kontoüberweisung, Budgetplanung, Gehaltsverhandlung, Ratenkauf-Falle, Scam erkennen, Krypto-Mythen, Versicherungen, Notgroschen-Aufbau. Echte österreichische Szenarien in geschützter Umgebung.',
+  },
+  {
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #92400e 0%, #d87228 100%)',
+    title: 'Dashboard & Gamification',
+    tag: 'Für Lehrkräfte',
+    zielgruppe: 'Alle Klassen im Blick',
+    maxPersonen: 'Punkte, Quizzes, Badges',
+    foerderbar: true,
+    text: 'Fortschritt, Noten und Deadlines aller Klassen auf einen Blick. Ideal für Elterngespräche. Gamification hält die Klasse motiviert.',
+  },
+]
+
+/* ── Trust facts ─────────────────────────────────────────── */
+const trustFacts = [
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+    ),
+    accent: '#6b4db0',
+    bg: '#f3f1f9',
+    headline: 'Top-3 Österreich',
+    detail: 'MEGA Bildungsmillion 2025 unter hunderten Einreichungen',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    ),
+    accent: '#2a8a76',
+    bg: '#e6f4f1',
+    headline: 'Gütesiegel Lern-Apps',
+    detail: 'Teil der nationalen Finanzbildungsstrategie. Wissenschaftliche Begleitung durch die Hochschule Burgenland.',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    ),
+    accent: '#4a2d8a',
+    bg: '#f3f1f9',
+    headline: '15 bis 20 Jahre',
+    detail: 'Für AHS, BHS (HAK, HTL, HLW, BAfEP, BASOP) und PTS konzipiert',
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    ),
+    accent: '#2A8A76',
+    bg: '#e6f4f1',
+    headline: 'DSGVO-konform',
+    detail: 'Aus Österreich, für Österreich. Keine Daten ins Ausland.',
+  },
+]
+
+
+export default function HomePage() {
+  const platformFeatures = [
+    {
+      icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>),
+      gradient: 'linear-gradient(135deg, #4a2d8a 0%, #6b4db0 100%)', bg: '#f3f1f9', accent: '#4a2d8a',
+      title: 'Dual-Modus Lernen', badge: 'Flexibel',
+      desc: 'Action-Modus (15 min) für unterwegs, Deep-Dive (50 min) für intensive Sessions. Jedes Modul in beiden Varianten verfügbar.',
+    },
+    {
+      icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>),
+      gradient: 'linear-gradient(135deg, #1a5c4e 0%, #2a8a76 100%)', bg: '#e6f4f1', accent: '#1a5c4e',
+      title: 'Peer-Videos', badge: 'Jugendnah',
+      desc: 'Gleichaltrige erklären Gleichaltrigen, authentisch und auf Augenhöhe. Das trifft die Lebenswelt der Jugendlichen besser als jeder Frontalvortrag.',
+    },
+    {
+      icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>),
+      gradient: 'linear-gradient(135deg, #1a5c4e 0%, #2a8a76 100%)', bg: '#e6f4f1', accent: '#1a5c4e',
+      title: 'Microlearning', badge: 'Kurz & effektiv',
+      desc: 'Kurze Lerneinheiten statt langer Vorträge. Jedes Thema ist in 15 Minuten erfassbar, perfekt für eine Unterrichtsstunde oder zwischendurch.',
+    },
+    {
+      icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>),
+      gradient: 'linear-gradient(135deg, #4a2d8a 0%, #6b4db0 100%)', bg: '#f3f1f9', accent: '#4a2d8a',
+      title: 'Gamification', badge: 'Motivierend',
+      desc: 'Punkte, Quizzes und Badges halten die Motivation hoch, auch bei Jugendlichen, die sonst schwer zu erreichen sind. Lernen wird zum Wettbewerb.',
+    },
+    {
+      icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>),
+      gradient: 'linear-gradient(135deg, #b85e20 0%, #D87228 100%)', bg: '#fdf0e6', accent: '#A84E12',
+      title: 'Lehrkräfte-Dashboard', badge: 'Für Lehrkräfte',
+      desc: 'Fortschritt, Noten und Deadlines aller Klassen auf einen Blick. Ideal für Elterngespräche, ohne zusätzliche Korrekturarbeit.',
+    },
+    {
+      icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>),
+      gradient: 'linear-gradient(135deg, #1a5c4e 0%, #2a8a76 100%)', bg: '#e6f4f1', accent: '#1E6B5B',
+      title: 'DSGVO-konform', badge: 'Datensicher',
+      desc: 'Im Browser gestartet, keine Installation nötig. EU-rechtssicher, datenschutzkonform, kein IT-Aufwand für die Schule.',
+    },
+  ]
+
+  const modulThemen = [
+    { icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>), color: '#4a2d8a', bg: '#f3f1f9', title: 'Persönlichkeitsbildung', subtitle: 'Dein Geld-Mindset, entschlüsselt', topics: ['Checken, warum du kaufst, was du kaufst', 'Deine Geldgeschichte, und was sie über dich verrät', 'Ziele setzen, die du wirklich durchziehst'] },
+    { icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>), color: '#6b4db0', bg: '#ede9f7', title: 'Basiswissen', subtitle: 'Die Begriffe, die dir sonst niemand erklärt', topics: ['Brutto vs. netto: was wirklich am Konto landet', 'Wohin deine Steuern und SV-Beiträge fließen', 'Warum alles teurer wird: Inflation durchschauen'] },
+    { icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>), color: '#1E6B5B', bg: '#e6f4f1', title: 'Praxis & Planung', subtitle: 'Dein Geld im Griff: nicht umgekehrt', topics: ['Ein Budget, das bis Monatsende hält', 'Erstes Depot eröffnen: risikofrei in der Simulation', 'Sparziel Führerschein: so lange dauert es wirklich'] },
+    { icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>), color: '#A84E12', bg: '#fdf0e6', title: 'Schutzwissen', subtitle: 'Die Fallen, die auf dich warten', topics: ['Klarna & Co: was „in 3 Raten“ wirklich kostet', 'Scams und Fake-Deals in Sekunden entlarven', 'Schuldenspirale stoppen, bevor sie startet'] },
+    { icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>), color: '#4a2d8a', bg: '#f3f1f9', title: 'Investieren & Vorsorge', subtitle: 'Lass dein Geld für dich arbeiten', topics: ['Aktien & ETFs verstehen, ohne Fachchinesisch', 'Krypto: Hype von Substanz trennen', 'Zinseszins: warum früh anfangen alles ändert'] },
+    { icon: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>), color: '#1E6B5B', bg: '#e6f4f1', title: 'Versicherungen & Risiko', subtitle: 'Absichern ohne Abzocke', topics: ['Welche Versicherungen du brauchst, und welche nicht', 'Notgroschen: dein Puffer, wenn’s kracht', 'Selbstbehalt & Prämie in zwei Minuten kapiert'] },
+  ]
+
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Skills-UP! – Digitale Zukunftsbildung',
+    url: 'https://www.example.invalid',
+    description: 'Finanzbildungsprogramm für österreichische Schulen der Sekundarstufe II.',
+    inLanguage: 'de-AT',
+    publisher: {
+      '@type': 'Organization',
+      name: 'Verein zur Entwicklung der digitalen Zukunftsbildung',
+    },
+  }
+
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    name: 'Verein zur Entwicklung der digitalen Zukunftsbildung',
+    alternateName: 'Digitale Zukunftsbildung',
+    url: 'https://www.example.invalid',
+    logo: 'https://www.example.invalid/fotos/Logo.png',
+    description: 'Gemeinnütziger Verein zur Entwicklung von Finanzbildungsprogrammen für österreichische Schulen. Anbieter von Skills-UP!, dem Unterrichtsprogramm für 15- bis 20-Jährige.',
+    address: VEREIN_POSTAL_ADDRESS,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'marina@example.invalid',
+      contactType: 'customer service',
+      availableLanguage: 'de',
+    },
+    sameAs: [
+      'https://linkedin.com/company/verein-zur-entwicklung-der-digitalen-zukunftsbildung',
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Skills-UP! Finanzbildungsprogramm',
+      itemListElement: [
+        {
+          '@type': 'Course',
+          name: 'Skills-UP! Finanzbildung',
+          description: 'Lehrplankonformes Finanzbildungsprogramm für 15- bis 20-Jährige an österreichischen Schulen. 15 Module, 17 Simulationen.',
+          provider: { '@type': 'Organization', name: 'Verein zur Entwicklung der digitalen Zukunftsbildung' },
+          educationalLevel: 'Sekundarstufe II',
+          inLanguage: 'de-AT',
+        },
+      ],
+    },
+  }
+
+  const reviewsJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Skills-UP! Finanzbildungsprogramm',
+    description: 'Lehrplankonformes Finanzbildungsprogramm für österreichische Schulen der Sekundarstufe II.',
+    brand: { '@type': 'Organization', name: 'Verein zur Entwicklung der digitalen Zukunftsbildung' },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '3',
+      bestRating: '5',
+    },
+    review: [
+      {
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: '5' },
+        author: { '@type': 'Person', name: 'Lisa M.' },
+        reviewBody: 'Aufgrund von Skills-UP! hab ich es endlich geschafft, für den Führerschein zu sparen. Zum ersten Mal hab ich verstanden, wo mein Geld eigentlich hingeht.',
+      },
+      {
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: '5' },
+        author: { '@type': 'Person', name: 'Mag. Eva R.', jobTitle: 'Lehrerin', worksFor: { '@type': 'EducationalOrganization', name: 'BHS Burgenland' } },
+        reviewBody: 'Endlich Material, das ich ohne Vorbereitung sofort einsetzen kann. Die Simulationen nehmen mir die Erklärarbeit ab. Im Dashboard sehe ich auf einen Blick, wo meine Klasse steht.',
+      },
+      {
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: '5' },
+        author: { '@type': 'Person', name: 'Mag. Thomas K.', jobTitle: 'Lehrer', worksFor: { '@type': 'EducationalOrganization', name: 'HAK Linz' } },
+        reviewBody: 'Die Gehaltsverhandlungs-Simulation war ein Augenöffner. Meine Klassen reden jetzt über Kollektivvertrag und Nettolohn. Themen, die vorher kein Thema waren.',
+      },
+    ],
+  }
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Für welche Schulen ist Skills-UP! geeignet?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Skills-UP! ist das Finanzbildungsprogramm für 15- bis 20-Jährige und eignet sich für AHS-Oberstufe, BHS (HAK, HTL, HLW, BAfEP, BASOP) sowie PTS und Berufsschulen. Die Inhalte sind lehrplankonform und lassen sich in Wirtschaft, Recht, Mathematik, Soziales oder im Klassenvorstand einsetzen.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Wie viel Vorbereitung brauchen Lehrkräfte?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Keine. Alle Module, Aufgaben und Übungsblätter sind fertig aufbereitet und sofort startbereit. Lehrkräfte öffnen Skills-UP! im Browser, starten ein Modul oder eine Simulation, und die Jugendlichen arbeiten selbstständig.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Was sind die Praxissimulationen genau?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Über 10 interaktive Szenarien aus dem echten Leben: virtuelles Depot eröffnen, Kontoüberweisung, Budgetplanung, Gehaltsverhandlung, Ratenkauf-Falle, Scam erkennen, Krypto-Mythen, Versicherungen und Notgroschen-Aufbau.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Muss etwas installiert werden? Ist es DSGVO-konform?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Nein, es muss nichts installiert werden. Skills-UP! läuft direkt im Browser, ist EU-rechtssicher und vollständig DSGVO-konform. Kein IT-Aufwand für die Schule.' },
+      },
+      {
+        '@type': 'Question',
+        name: 'Ist Skills-UP! ausgezeichnet oder zertifiziert?',
+        acceptedAnswer: { '@type': 'Answer', text: 'Ja. Skills-UP! wurde als Top-3-Projekt der MEGA Bildungsmillion 2025 ausgezeichnet trägt das Gütesiegel Lern-Apps und ist Teil der nationalen Finanzbildungsstrategie. Die Hochschule Burgenland begleitet das Programm wissenschaftlich.' },
+      },
+    ],
+  }
+
+  return (
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <SiteNav dark />
+
+      {/* ══════════════════════════════════════════════════
+          HERO
+      ══════════════════════════════════════════════════ */}
+      <main id="main-content">
+      <section aria-labelledby="hero-heading" className="relative overflow-hidden min-h-screen flex flex-col">
+        {/* Mesh gradient */}
+        <div
+          className="absolute inset-0 animate-gradient-shift"
+          style={{
+            background: 'linear-gradient(135deg, #2d1b69 0%, #4a2d8a 25%, #6b4db0 55%, #1a5c4e 85%, #0d4036 100%)',
+            backgroundSize: '200% 200%',
+          }}
+        />
+        {/* Orbs */}
+        <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full animate-float-orb pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(155,126,212,0.35) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-[10%] left-[-8%] w-[500px] h-[500px] rounded-full animate-float-orb-reverse pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(42,138,118,0.3) 0%, transparent 70%)' }} />
+        <div className="absolute top-[40%] left-[30%] w-[300px] h-[300px] rounded-full animate-float-orb pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)', animationDelay: '4s' }} />
+
+        {/* Hero content */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center max-w-5xl mx-auto px-6 pt-24 pb-12 text-center">
+          {/* Award badge */}
+          <div className="inline-flex items-center gap-2 glass text-white/90 text-xs font-body font-700 px-4 py-2 rounded-full mb-5 border border-white/20">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#fde68a" stroke="#fde68a" strokeWidth="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Top-3 MEGA Bildungsmillion 2025</span>
+            <span className="w-px h-3 bg-white/30" />
+            <span className="text-white/60">Gütesiegel Lern-Apps</span>
+          </div>
+
+          {/* Maskottchen */}
+          <div className="mb-4 flex items-center justify-center relative">
+            <div className="absolute inset-0 blur-3xl scale-125 pointer-events-none"
+              style={{ background: 'radial-gradient(circle, rgba(155,126,212,0.4) 0%, transparent 70%)' }} />
+            <Image src="/capybara-mascot.png" alt="Skills-UP! Maskottchen" width={96} height={96}
+              className="relative drop-shadow-2xl w-20 md:w-24 h-auto" priority />
+          </div>
+
+          <p className="font-heading text-lg md:text-2xl text-white/80 font-600 mb-3 leading-snug">
+            Lehrplankonformes Finanzbildungsprogramm für österreichische Schulen
+          </p>
+
+          <h1 id="hero-heading" className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
+            Finanzbildung für Ihre Klasse.<br />
+            <span className="text-primary-light">Fertig. Sofort.</span>
+          </h1>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-3">
+            <Link href="/demo"
+              className="inline-flex items-center justify-center gap-2 font-body font-700 text-base md:text-lg px-7 md:px-9 py-3.5 md:py-4 rounded-xl shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 text-white"
+              style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #6b4db0 50%, #2a8a76 100%)', boxShadow: '0 8px 32px rgba(107,77,176,0.5)' }}
+            >
+              Gratis Demo starten
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </Link>
+            <a href="#angebote"
+              className="glass inline-flex items-center justify-center gap-2 text-white font-body font-600 text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4 rounded-xl hover:bg-white/15 transition-all duration-200 border border-white/20"
+            >
+              Bildungsprogramm entdecken
+            </a>
+          </div>
+          <p className="text-white/60 text-sm mb-5 font-body">Kostenlos · Keine Anmeldung · Kein automatischer Vertrag</p>
+
+          {/* Zielgruppen-Split */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6 mt-1">
+            {[
+              {
+                href: '/schulen',
+                icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>,
+                label: 'Ich bin Lehrkraft oder Schulleitung',
+                sub: 'Für Schulen →',
+              },
+              {
+                href: '/#unternehmen',
+                icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>,
+                label: 'Ich bin Unternehmen oder Lehrbetrieb',
+                sub: 'Für Unternehmen →',
+              },
+            ].map((z) => (
+              <a key={z.href} href={z.href}
+                className="group flex items-center gap-3 px-5 py-3.5 rounded-2xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] text-left"
+                style={{ background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.18)', backdropFilter: 'blur(8px)' }}>
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-white"
+                  style={{ background: 'rgba(255,255,255,0.15)' }}>
+                  {z.icon}
+                </div>
+                <div>
+                  <p className="font-body font-700 text-white text-sm leading-tight">{z.label}</p>
+                  <p className="font-body text-white/55 text-xs mt-0.5 group-hover:text-white/80 transition-colors">{z.sub}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Quick-Start für gestresste Lehrkräfte */}
+          <div className="glass rounded-2xl border border-white/15 px-5 py-4 mb-7 max-w-2xl mx-auto">
+            <div className="grid sm:grid-cols-3 gap-3 text-left">
+              {[
+                { nr: '1', fett: 'Ohne Vorbereitung.', rest: 'Demo öffnen, Klasse loslegen lassen.' },
+                { nr: '2', fett: 'Klick-fertig.', rest: 'Module und Simulationen starten sofort.' },
+                { nr: '3', fett: 'Direkt im Browser.', rest: 'Keine Installation, kein IT-Antrag.' },
+              ].map((s) => (
+                <div key={s.nr} className="flex items-start gap-2.5">
+                  <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-heading font-800 text-white"
+                    style={{ background: 'linear-gradient(135deg, #6b4db0, #2a8a76)' }}>
+                    {s.nr}
+                  </span>
+                  <p className="font-body text-sm leading-snug text-white/75">
+                    <strong className="text-white">{s.fett}</strong> {s.rest}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Trust signals */}
+          <div className="flex flex-wrap items-center justify-center gap-6 text-white/55 text-sm font-body">
+            {[
+              '12+ interaktive Module',
+              '17 Simulationen',
+              'Lehrplankonform',
+              'DSGVO-konform aus Österreich',
+            ].map((t) => (
+              <div key={t} className="flex items-center gap-1.5">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                {t}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="relative z-10 flex justify-center pb-6">
+          <div aria-hidden="true" className="animate-bounce-down flex flex-col items-center gap-1 text-white/40">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Wave */}
+        <div className="relative z-10">
+          <svg viewBox="0 0 1440 100" className="w-full" preserveAspectRatio="none" style={{ display: 'block' }}>
+            <defs>
+              <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#f8f9fa" />
+                <stop offset="100%" stopColor="#f3f1f9" />
+              </linearGradient>
+            </defs>
+            <path d="M0,50 C240,100 480,0 720,50 C960,100 1200,10 1440,50 L1440,100 L0,100 Z" fill="url(#waveGrad)" />
+          </svg>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          TRUST FACTS
+      ══════════════════════════════════════════════════ */}
+      <section className="py-14 bg-white border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {trustFacts.map((f) => (
+              <div key={f.headline} className="flex items-start gap-4 p-5 rounded-2xl" style={{ background: f.bg }}>
+                <div className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: f.accent, color: '#fff' }}>
+                  {f.icon}
+                </div>
+                <div>
+                  <p className="font-heading font-700 text-sm leading-tight mb-1" style={{ color: '#1a1040' }}>{f.headline}</p>
+                  <p className="text-xs font-body text-text-secondary leading-snug">{f.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          VIDEO
+      ══════════════════════════════════════════════════ */}
+      <VideoSection variant="dark" farbe="#6b4db0" />
+
+      {/* ══════════════════════════════════════════════════
+          PARTNER LOGO MARQUEE
+      ══════════════════════════════════════════════════ */}
+      <section id="partner" className="py-14 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
+          <p className="text-xs font-body font-700 uppercase tracking-widest text-text-secondary">
+            Unsere Partner &amp; Auszeichnungen
+          </p>
+        </div>
+        {/* Screen-reader-only partner list: no duplicates */}
+        <ul className="sr-only">
+          {partnerLogos.map((l) => <li key={l.alt}>{l.alt}</li>)}
+        </ul>
+        <div className="relative marquee-track" aria-hidden="true">
+          <div className="flex animate-marquee gap-12 md:gap-24 items-center">
+            {[...partnerLogos, ...partnerLogos].map((logo, i) => (
+              <div key={`${logo.alt}-${i}`}
+                className="shrink-0 flex items-center justify-center px-6 rounded-2xl"
+                style={{
+                  height: '96px',
+                  background: logo.alt === 'Gütesiegel Lern-Apps' ? '#f3f1f9' : 'transparent',
+                  padding: logo.alt === 'Gütesiegel Lern-Apps' ? '12px 24px' : '0 24px',
+                }}>
+                <Image
+                  src={logo.src}
+                  alt=""
+                  width={240}
+                  height={logo.alt === 'Gütesiegel Lern-Apps' ? 72 : 96}
+                  loading="lazy"
+                  className="partner-logo"
+                  style={{
+                    height: logo.alt === 'Gütesiegel Lern-Apps' ? '72px' : '96px',
+                    width: 'auto',
+                    objectFit: 'contain',
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          AUSZEICHNUNGEN STRIP
+      ══════════════════════════════════════════════════ */}
+      <section className="py-16" style={{ background: 'linear-gradient(135deg, #f3f1f9 0%, #e6f4f1 100%)' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <p className="text-xs font-body font-700 uppercase tracking-widest mb-2" style={{ color: '#6b4db0' }}>
+              Ausgezeichnet &amp; zertifiziert
+            </p>
+            <h2 className="font-heading text-2xl md:text-3xl font-bold" style={{ color: '#1a1040' }}>
+              Von unabhängigen Stellen geprüft und empfohlen.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {/* Gütesiegel: highlight */}
+            <div className="bg-white rounded-3xl p-7 flex flex-col items-center text-center gap-4 shadow-card hover:shadow-card-hover transition-all border-2" style={{ borderColor: '#4a2d8a' }}>
+              <div className="h-28 flex items-center justify-center bg-primary-50 rounded-2xl w-full px-4">
+                <Image
+                  src="/fotos/logo-guetesiegel.png"
+                  alt="Gütesiegel Qualitäts-Lern-Apps"
+                  width={220}
+                  height={112}
+                  className="max-h-24 w-auto object-contain"
+                />
+              </div>
+              <div>
+                <span className="inline-block text-xs font-body font-700 px-3 py-1 rounded-full mb-2" style={{ background: '#4a2d8a', color: '#fff' }}>Qualitätszertifiziert</span>
+                <p className="font-body text-sm text-text-muted leading-relaxed">Erfüllt die Qualitätsstandards für den Einsatz in österreichischen Schulen. Pädagogisch geprüft, lehrplankonform, technisch stabil.</p>
+              </div>
+            </div>
+            {/* Finanzbildungsstrategie */}
+            <div className="bg-white rounded-3xl p-7 flex flex-col items-center text-center gap-4 shadow-card hover:shadow-card-hover transition-all">
+              <div className="h-28 flex items-center justify-center w-full px-2">
+                <Image
+                  src="/fotos/logo-finanzbildungsstrategie.png"
+                  alt="Nationale Finanzbildungsstrategie"
+                  width={300}
+                  height={112}
+                  className="max-h-28 w-auto object-contain"
+                />
+              </div>
+              <div>
+                <span className="inline-block text-xs font-body font-700 px-3 py-1 rounded-full mb-2" style={{ background: '#1E6B5B', color: '#fff' }}>Bundesministerium</span>
+                <p className="font-body text-sm text-text-muted leading-relaxed">Teil der Nationalen Finanzbildungsstrategie der österreichischen Bundesregierung.</p>
+              </div>
+            </div>
+            {/* MEGA Bildungsmillion */}
+            <div className="bg-white rounded-3xl p-7 flex flex-col items-center text-center gap-4 shadow-card hover:shadow-card-hover transition-all">
+              <div className="h-20 flex items-center justify-center">
+                <Image
+                  src="/fotos/MEGA%20Bildungsstiftung%20Logo.jpeg"
+                  alt="MEGA Bildungsstiftung"
+                  width={200}
+                  height={80}
+                  className="max-h-20 w-auto object-contain"
+                />
+              </div>
+              <div>
+                <span className="inline-block text-xs font-body font-700 px-3 py-1 rounded-full mb-2" style={{ background: '#A84E12', color: '#fff' }}>Top-3 Österreich</span>
+                <p className="font-body text-sm text-text-muted leading-relaxed">Ausgezeichnet unter hunderten Einreichungen österreichweit, von einer unabhängigen Jury für Innovation und pädagogischen Impact.</p>
+              </div>
+            </div>
+          </div>
+          <p className="text-center font-body text-sm text-text-secondary mt-8">
+            Was Skills-UP! bewirkt und wie wir es messen, steht im{' '}
+            <Link href="/wirkungsmessung" className="font-700 underline underline-offset-2 text-primary-dark hover:opacity-80">Wirkungsbericht</Link>.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          SCHULTYPEN ABSPRUNG
+      ══════════════════════════════════════════════════ */}
+      <section id="schulen" className="py-14 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <div className="flex justify-center mb-4">
+              <Image src="/capybara-mascot.png" alt="" width={64} height={64} className="drop-shadow-lg" aria-hidden="true" />
+            </div>
+            <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest px-4 py-2 rounded-full mb-5"
+              style={{ background: '#ede9f8', color: '#4a2d8a' }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+              9. bis 12. Schulstufe
+            </div>
+            <h2 className="font-heading text-3xl md:text-5xl font-bold mb-5" style={{ color: '#1a1040' }}>
+              Finanzbildung für<br />
+              <span style={{ color: '#4a2d8a' }}>jede Schulform in Österreich.</span>
+            </h2>
+            <p className="font-body text-text-secondary text-lg max-w-2xl mx-auto mb-4">
+              Skills-UP! ist das lehrplankonforme Finanzbildungsprogramm für Jugendliche ab 15 Jahren: sofort einsetzbar für AHS, HAK, HTL, HLW, BAfEP, BASOP, PTS und Berufsschulen.
+            </p>
+            <Link href="/schulen" className="inline-flex items-center gap-2 font-body font-700 text-sm px-5 py-3 rounded-xl transition-all hover:scale-105"
+              style={{ background: '#4a2d8a', color: '#fff' }}>
+              Alle Schultypen entdecken
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+          </div>
+
+          {/* ── Gruppe 1: Oberstufe ── */}
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-body font-700"
+                style={{ background: '#4a2d8a', color: '#fff' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                </svg>
+                Oberstufe: 10. bis 12. Schulstufe
+              </div>
+              <p className="text-xs font-body text-text-muted hidden sm:block">AHS, HAK, HTL, HLW, BAfEP, BASOP</p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+              {[
+                { slug: 'ahs', label: 'AHS-Oberstufe', sub: '9.–12. Schulstufe', farbe: '#4a2d8a', bg: '#ede9f8',
+                  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> },
+                { slug: 'hak', label: 'HAK & HAS', sub: 'Wirtschaft & Finanzen', farbe: '#6b4db0', bg: '#ede9f7',
+                  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg> },
+                { slug: 'htl', label: 'HTL', sub: 'Technik & Beruf', farbe: '#1E6B5B', bg: '#e6f4f1',
+                  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 17.66l-1.41 1.41M2 12h2m16 0h2M5.34 6.34L3.93 4.93m14.14 14.14l-1.41-1.41M12 2v2m0 16v2"/></svg> },
+                { slug: 'hlw', label: 'HLW & Fachschulen', sub: 'Alltag & Lebensführung', farbe: '#1a5c4e', bg: '#e6f4f1',
+                  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
+                { slug: 'bafep', label: 'BAfEP & BASOP', sub: 'Pädagogik', farbe: '#4a2d8a', bg: '#f3f1f9',
+                  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+                { slug: null, label: 'Alle Schultypen', sub: 'Übersicht & Vergleich', farbe: '#ffffff', bg: 'linear-gradient(135deg, #4a2d8a, #6b4db0)',
+                  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> },
+              ].map((s) => (
+                <Link key={s.slug ?? 'alle-ob'} href={s.slug ? `/schulen/${s.slug}` : '/schulen'}
+                  className="group rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-card flex flex-col gap-3"
+                  style={{ background: s.slug ? s.bg : s.bg }}>
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: s.slug ? s.farbe : 'rgba(255,255,255,0.25)', color: '#fff' }}>
+                    {s.icon}
+                  </div>
+                  <div>
+                    <p className="font-heading font-700 text-sm leading-tight mb-0.5"
+                      style={{ color: s.slug ? '#1a1040' : '#fff' }}>{s.label}</p>
+                    <p className="font-body text-xs"
+                      style={{ color: s.slug ? s.farbe : 'rgba(255,255,255,0.7)' }}>{s.sub}</p>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs font-body font-700 group-hover:gap-2 transition-all mt-auto"
+                    style={{ color: s.slug ? s.farbe : 'rgba(255,255,255,0.9)' }}>
+                    Mehr
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Gruppe 2: PTS & Berufsschule ── */}
+          <div className="rounded-3xl p-6 md:p-8" style={{ background: 'linear-gradient(135deg, #1a1040 0%, #0f3d2d 100%)' }}>
+            <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+              <div className="shrink-0">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-body font-700 mb-3 w-fit"
+                  style={{ background: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.15)' }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                  </svg>
+                  PTS & Berufsschule: 9. Schulstufe & Lehre
+                </div>
+                <h3 className="font-heading text-xl font-bold text-white mb-2">Lernen, das direkt in die Arbeitswelt führt.</h3>
+                <p className="text-white/60 font-body text-sm max-w-md leading-relaxed">
+                  Für Jugendliche an der PTS und für Lehrlinge ist Finanzbildung kein abstraktes Thema: Lohnzettel, erster Kredit und Haushaltsgeld sind unmittelbar real. Skills-UP! ist speziell auf diese Lebenswelt zugeschnitten.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 shrink-0 md:ml-auto">
+                {[
+                  { slug: 'pts', label: 'PTS', sub: '9. Schulstufe', farbe: '#D87228', bg: 'rgba(255,255,255,0.08)',
+                    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> },
+                  { slug: 'berufsschule', label: 'Berufsschule', sub: 'Lehre & Ausbildung', farbe: '#2A8A76', bg: 'rgba(255,255,255,0.08)',
+                    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> },
+                ].map((s) => (
+                  <Link key={s.slug} href={`/schulen/${s.slug}`}
+                    className="group rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 flex flex-col gap-3"
+                    style={{ background: s.bg, border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-white"
+                      style={{ background: s.farbe }}>
+                      {s.icon}
+                    </div>
+                    <div>
+                      <p className="font-heading font-700 text-sm text-white leading-tight mb-0.5">{s.label}</p>
+                      <p className="font-body text-xs" style={{ color: s.farbe }}>{s.sub}</p>
+                    </div>
+                    <div className="flex items-center gap-1 text-xs font-body font-700 group-hover:gap-2 transition-all mt-auto text-white/60 group-hover:text-white">
+                      Mehr
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                      </svg>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          ANGEBOTE
+      ══════════════════════════════════════════════════ */}
+      <section id="angebote" className="py-16 md:py-28 max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest text-primary-medium bg-primary-50 px-4 py-2 rounded-full mb-5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Das Skills-UP! Programm
+          </div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold mb-5" style={{ color: '#1a1040' }}>
+            Drei Bausteine, die <span className="text-status-teal">wirken.</span>
+          </h2>
+          <p className="text-text-muted text-lg max-w-2xl mx-auto font-body">
+            Skills-UP! verbindet fundiertes Finanzwissen mit echtem Erleben. Alles fertig aufbereitet, lehrplankonform und ohne Vorbereitungsaufwand für Lehrkräfte.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {angebote.map((a) => (
+            <div key={a.title} className="card-gradient group flex flex-col">
+              <div className="flex items-start justify-between mb-6">
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 text-white"
+                  style={{ background: a.gradient }}>
+                  {a.icon}
+                </div>
+                {a.foerderbar && (
+                  <span className="text-xs font-body font-700 px-2 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100">
+                    Sofort startbereit
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2 mb-3">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-body font-700 bg-primary-50 text-primary-medium">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  {a.tag}
+                </span>
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-body font-700 bg-gray-50 text-text-secondary">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  {a.maxPersonen}
+                </span>
+              </div>
+              <h3 className="font-heading text-xl font-bold mb-2" style={{ color: '#1a1040' }}>{a.title}</h3>
+              <p className="text-xs font-body text-primary-medium font-600 mb-3">{a.zielgruppe}</p>
+              <p className="text-text-muted text-sm font-body leading-relaxed flex-1">{a.text}</p>
+              <a href="#kontakt" className="mt-6 inline-flex items-center gap-1.5 text-sm font-body font-700 text-primary-medium hover:text-primary-dark transition-colors py-2.5">
+                Anfragen
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Lernziele Teaser (weitere 6, andere Themen) ─── */}
+      <LernzieleTeaser
+        anzahl={6}
+        offset={6}
+        headline="Von Steuern bis Investieren: alles was zählt."
+        eyebrow="Lernziele aus 15 Modulen"
+      />
+
+      {/* ══════════════════════════════════════════════════
+          AKTIENGAME CTA
+      ══════════════════════════════════════════════════ */}
+      <AktiengameCTA />
+
+      {/* ══════════════════════════════════════════════════
+          KONSUMFALLEN DEMO CTA
+      ══════════════════════════════════════════════════ */}
+      <KonsumfallenCTA />
+
+      {/* ══════════════════════════════════════════════════
+          PLATFORM FEATURES
+      ══════════════════════════════════════════════════ */}
+      <section id="plattform" className="py-16 md:py-28" style={{ background: 'linear-gradient(135deg, #f3f1f9 0%, #e6f4f1 100%)' }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest text-primary-medium bg-white px-4 py-2 rounded-full mb-5 shadow-sm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Was Skills-UP! einzigartig macht
+            </div>
+            <h2 className="font-heading text-3xl md:text-5xl font-bold mb-5" style={{ color: '#1a1040' }}>
+              So funktioniert<br /><span className="text-primary-medium">lehrplankonformes Finanzbildung.</span>
+            </h2>
+            <p className="text-text-muted text-lg max-w-2xl mx-auto font-body">
+              Skills-UP! kombiniert bewährte Didaktik mit moderner Lerntechnologie: Peer-Videos, Microlearning und Gamification, damit Finanzkompetenz bei Jugendlichen wirklich hängen bleibt.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {platformFeatures.map((f) => (
+              <div key={f.title} className="bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all group">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: f.gradient }}>
+                    {f.icon}
+                  </div>
+                  <div>
+                    <span className="inline-block text-xs font-body font-700 px-2 py-0.5 rounded-full mb-1" style={{ background: f.bg, color: f.accent }}>{f.badge}</span>
+                    <h3 className="font-heading font-700 text-base" style={{ color: '#1a1040' }}>{f.title}</h3>
+                  </div>
+                </div>
+                <p className="text-text-muted text-sm font-body leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          MODUL-THEMEN
+      ══════════════════════════════════════════════════ */}
+      <section className="py-14 md:py-24 max-w-7xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest text-status-teal bg-status-teal-light px-4 py-2 rounded-full mb-5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            15 Module für fundiertes Finanzwissen
+          </div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold mb-5" style={{ color: '#1a1040' }}>
+            Was Jugendliche lernen.
+          </h2>
+          <p className="text-text-muted text-lg max-w-2xl mx-auto font-body">
+            Sechs Themenbereiche, aufgebaut auf dem, was junge Menschen ab 15 für echte Finanzentscheidungen wirklich brauchen.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {modulThemen.map((m) => (
+            <div key={m.title} className="rounded-2xl p-6 border border-gray-100 hover:shadow-card-hover transition-all group" style={{ background: m.bg }}>
+              <div className="flex items-start gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: m.color, color: '#fff' }}>
+                  {m.icon}
+                </div>
+                <div>
+                  <h3 className="font-heading font-700 text-base leading-tight" style={{ color: m.color }}>{m.title}</h3>
+                  {'subtitle' in m && <p className="font-body text-xs text-text-secondary mt-0.5">{(m as typeof m & { subtitle: string }).subtitle}</p>}
+                </div>
+              </div>
+              <ul className="space-y-2">
+                {m.topics.map((t) => (
+                  <li key={t} className="flex items-center gap-2 text-sm font-body text-text-secondary">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={m.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          PROGRAMM EINBLICK (Photo Gallery)
+      ══════════════════════════════════════════════════ */}
+      <section className="py-20 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f3f1f9 0%, #e6f4f1 100%)' }}>
+        <div className="max-w-7xl mx-auto px-6 mb-10">
+          <div className="text-center">
+            <p className="text-xs font-body font-700 uppercase tracking-widest text-primary-medium mb-3">Live-Einblick</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold" style={{ color: '#1a1040' }}>
+              So sehen unsere Kurse aus.
+            </h2>
+          </div>
+        </div>
+        <div className="relative">
+          <div className="flex gap-5 overflow-x-auto scrollbar-hide px-6 pb-4">
+          {programPics.map((pic) => (
+            <div key={pic.src} className="shrink-0 w-72 h-48 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-shadow">
+              <Image src={pic.src} alt={pic.alt} width={288} height={192} loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+          ))}
+          </div>
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-20 md:hidden"
+            style={{ background: 'linear-gradient(to left, rgba(243,241,249,0.9) 0%, transparent 100%)' }}>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-primary-medium text-xs font-body font-600 flex items-center gap-1">
+              <span>mehr</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          GRÜNDER STATEMENT
+      ══════════════════════════════════════════════════ */}
+      <section className="py-20" style={{ background: 'linear-gradient(135deg, #1a1040 0%, #2d1b69 60%, #1a5c4e 100%)' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-[280px_1fr] gap-12 items-center">
+            {/* Foto */}
+            <div className="flex flex-col items-center md:items-start gap-5">
+              <div className="relative">
+                <div className="absolute inset-0 rounded-2xl blur-3xl scale-125 pointer-events-none"
+                  style={{ background: 'radial-gradient(circle, rgba(155,126,212,0.45) 0%, transparent 70%)' }} />
+                <div className="relative w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                  <Image
+                    src="/fotos/skillsUP-10.jpg"
+                    alt="Dr. Stefan Bauer, Gründer Skills-UP!"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
+              <div className="text-center md:text-left">
+                <p className="font-heading font-700 text-white text-lg leading-tight">Dr. Stefan Bauer</p>
+                <p className="font-body text-white/60 text-sm mt-0.5">Stellvertretender Vorsitz &amp; Vorstand</p>
+                <p className="font-body text-white/55 text-xs mt-0.5">Verein digitale Zukunftsbildung</p>
+              </div>
+            </div>
+
+            {/* Quotes */}
+            <div>
+              <div className="flex items-center gap-2 mb-6">
+                <Image src="/fotos/Logo.png" alt="Skills-UP!" width={32} height={32} className="rounded-lg opacity-80" />
+                <span className="text-xs font-body font-700 uppercase tracking-widest text-white/40">Warum Skills-UP! existiert</span>
+              </div>
+
+              <svg width="44" height="33" viewBox="0 0 48 36" fill="none" className="mb-5 opacity-30">
+                <path d="M0 36V21.6C0 9.6 6.4 2.4 19.2 0l2.4 4.8C14.4 6.4 10.4 10.4 10.4 16.8H19.2V36H0ZM28.8 36V21.6C28.8 9.6 35.2 2.4 48 0l2.4 4.8C43.2 6.4 39.2 10.4 39.2 16.8H48V36H28.8Z" fill="white"/>
+              </svg>
+
+              <p className="font-body text-2xl md:text-3xl leading-relaxed text-white/90 italic mb-6">
+                &ldquo;Junge Menschen treffen heute echte Geldentscheidungen, oft ohne jemanden, der ihnen erklärt wie. Das wollten wir ändern.&rdquo;
+              </p>
+              <p className="font-body text-lg text-white/70 leading-relaxed mb-10">
+                Skills-UP! ist aus der Überzeugung entstanden, dass Finanzbildung kein Privileg sein darf. Wir haben ein Programm gebaut, das an jeder österreichischen Schule funktioniert. Ohne Mehraufwand für Lehrkräfte, mit Inhalten, die wirklich im Leben ankommen.
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { label: 'Top-3 MEGA Bildungsmillion', icon: '★' },
+                  { label: 'Gütesiegel Lern-Apps', icon: '✓' },
+                  { label: 'Nationale Finanzbildungsstrategie', icon: '⊕' },
+                ].map((b) => (
+                  <span key={b.label} className="inline-flex items-center gap-1.5 text-xs font-body font-700 px-3 py-1.5 rounded-full"
+                    style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.75)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                    <span style={{ color: '#9b7ed4' }}>{b.icon}</span> {b.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          MARINA STATEMENT
+      ══════════════════════════════════════════════════ */}
+      <section className="py-20" style={{ background: 'linear-gradient(135deg, #0f3d32 0%, #1a5c4e 60%, #2d1b69 100%)' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-[1fr_280px] gap-12 items-center">
+            {/* Quote: links */}
+            <div>
+              <div className="flex items-center gap-2 mb-6">
+                <Image src="/fotos/Logo.png" alt="Skills-UP!" width={32} height={32} className="rounded-lg opacity-80" />
+                <span className="text-xs font-body font-700 uppercase tracking-widest text-white/40">Pädagogische Leitung</span>
+              </div>
+
+              <svg width="44" height="33" viewBox="0 0 48 36" fill="none" className="mb-5 opacity-30">
+                <path d="M0 36V21.6C0 9.6 6.4 2.4 19.2 0l2.4 4.8C14.4 6.4 10.4 10.4 10.4 16.8H19.2V36H0ZM28.8 36V21.6C28.8 9.6 35.2 2.4 48 0l2.4 4.8C43.2 6.4 39.2 10.4 39.2 16.8H48V36H28.8Z" fill="white"/>
+              </svg>
+
+              <p className="font-body text-2xl md:text-3xl leading-relaxed text-white/90 italic mb-6">
+                &ldquo;Die erste Idee für Skills-UP! entstand während des Lockdowns, als ich über Teach for Austria unterrichtete und hautnah sah, wie wenig Jugendliche über Finanzen wussten.&rdquo;
+              </p>
+              <p className="font-body text-lg text-white/70 leading-relaxed mb-10">
+                15 Jahre Erfahrung, von der Bank über internationale Bildungsprogramme bis zum selbst entwickelten Lernprogramm für Jugendliche. Als Bildungsexpertin mit Fokus auf Finanzkompetenz, digitalem Lernen und Chancengerechtigkeit weiß ich: Finanzbildung darf kein Privileg sein. Deshalb gibt es Skills-UP!.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { label: 'Obfrau & Pädagogische Leitung', icon: '◆' },
+                  { label: 'Finanzbildungsexpertin', icon: '◆' },
+                  { label: '15 Jahre Erfahrung', icon: '◆' },
+                ].map((b) => (
+                  <span key={b.label} className="inline-flex items-center gap-1.5 text-xs font-body font-700 px-3 py-1.5 rounded-full"
+                    style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.75)', border: '1px solid rgba(255,255,255,0.2)' }}>
+                    <span style={{ color: '#4aaa96' }}>{b.icon}</span> {b.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Foto: rechts */}
+            <div className="flex flex-col items-center md:items-end gap-5">
+              <div className="relative">
+                <div className="absolute inset-0 rounded-2xl blur-3xl scale-125 pointer-events-none"
+                  style={{ background: 'radial-gradient(circle, rgba(42,138,118,0.45) 0%, transparent 70%)' }} />
+                <div className="relative w-52 h-52 md:w-64 md:h-64 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                  <Image
+                    src="/fotos/skillsUP-8.jpg"
+                    alt="Marina Winkler, MA, Vereinsleitung Skills-UP!"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+              </div>
+              <div className="text-center md:text-right">
+                <p className="font-heading font-700 text-white text-lg leading-tight">Marina Winkler, MA</p>
+                <p className="font-body text-white/60 text-sm mt-0.5">Obfrau, Pädagogische Leitung &amp; Finanzbildungsexpertin</p>
+                <p className="font-body text-white/55 text-xs mt-0.5">Bildungsexpertin · Finanzkompetenz · Chancengerechtigkeit</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          VORSTELLUNGSVIDEO (Bunny Stream, Two-Click)
+      ══════════════════════════════════════════════════ */}
+      <div className="relative overflow-hidden">
+        {/* Capybara Watermark */}
+        <Image
+          src="/capybara-mascot.png"
+          alt=""
+          width={320}
+          height={320}
+          aria-hidden="true"
+          className="absolute -bottom-8 -right-8 opacity-[0.07] pointer-events-none select-none rotate-12 hidden md:block"
+        />
+        <BunnyVideoSektion
+          eyebrow="Skills-UP! vorgestellt"
+          headline="Das ist der Anlass. Das ist die Antwort."
+          lead="Jede dritte Person in der Schuldnerberatung ist unter 30 und im Schnitt mit 30.000 Euro verschuldet. Deshalb haben wir Skills-UP! entwickelt."
+          variante="dunkel"
+          videos={[{
+            guid: 'placeholder-hintergrund',
+            badge: 'Hintergrund',
+            titel: 'Skills-UP! vorgestellt',
+            beschreibung: 'Jede dritte Person in der Schuldnerberatung ist unter 30 und im Schnitt mit 30.000 Euro verschuldet. Das ist der Anlass, und das ist die Antwort.',
+            sekunden: 63,
+            akzent: '#2a8a76',
+            poster: '/willkommen/vertrieb.jpg',
+          } satisfies BunnyVideo]}
+        />
+      </div>
+
+      {/* ══════════════════════════════════════════════════
+          ZIELGRUPPEN
+      ══════════════════════════════════════════════════ */}
+      <section className="py-14 md:py-24 max-w-7xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest text-primary-medium bg-primary-50 px-4 py-2 rounded-full mb-5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Für wen ist Skills-UP!?
+          </div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold" style={{ color: '#1a1040' }}>
+            Maßgeschneidert für jede Zielgruppe.
+          </h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              emoji: '👩‍🏫',
+              title: 'Lehrkräfte',
+              color: '#4a2d8a', bg: 'linear-gradient(135deg, #4a2d8a 0%, #6b4db0 100%)',
+              points: [
+                'Fertige Module, Aufgaben und Übungsblätter',
+                'Kein Vorbereitungsaufwand, sofort startbereit',
+                'Dashboard mit Fortschritt aller Klassen',
+                'Lehrplankonform für Wirtschaft, Recht, Mathematik',
+              ],
+              cta: 'Als Lehrkraft anfragen',
+            },
+            {
+              emoji: '🧑‍🎓',
+              title: 'Jugendliche',
+              color: '#1a5c4e', bg: 'linear-gradient(135deg, #1a5c4e 0%, #2a8a76 100%)',
+              points: [
+                '17 Simulationen aus dem echten Leben',
+                'Peer-Videos auf Augenhöhe, jugendnah',
+                'Gamification mit Punkten, Quizzes und Badges',
+                'Finanzwissen, das im Alltag wirklich ankommt',
+              ],
+              cta: 'Mehr für Jugendliche',
+            },
+            {
+              emoji: '🏫',
+              title: 'Schulleitung',
+              color: '#A84E12', bg: 'linear-gradient(135deg, #b85e20 0%, #D87228 100%)',
+              points: [
+                'Schulweites Rollout in Minuten',
+                'Kein IT-Aufwand, im Browser gestartet',
+                'DSGVO-konform und EU-rechtssicher',
+                'Für AHS, BHS (HAK, HTL, HLW, BAfEP, BASOP) & PTS',
+              ],
+              cta: 'Für die Schule anfragen',
+            },
+          ].map((z) => (
+            <div key={z.title} className="rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover transition-all group">
+              <div className="px-8 pt-8 pb-6 text-white" style={{ background: z.bg }}>
+                <div className="text-4xl mb-3" aria-hidden="true">{z.emoji}</div>
+                <h3 className="font-heading text-xl font-bold leading-tight">{z.title}</h3>
+              </div>
+              <div className="bg-white px-8 py-6">
+                <ul className="space-y-3 mb-6">
+                  {z.points.map((p) => (
+                    <li key={p} className="flex items-start gap-2 text-sm font-body text-text-secondary">
+                      <svg className="shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={z.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+                <a href="#kontakt" className="inline-flex items-center gap-1.5 text-sm font-body font-700 transition-colors hover:opacity-80" style={{ color: z.color }}>
+                  {z.cta}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          FÜR UNTERNEHMEN
+      ══════════════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════
+          FINANZBILDUNG PFLICHTFACH 2027
+      ══════════════════════════════════════════════════ */}
+      <section id="pflichtfach-2027" className="py-14 bg-white">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="rounded-3xl overflow-hidden border-2 border-primary-light/30"
+            style={{ background: 'linear-gradient(135deg, #f3f1f9 0%, #e6f4f1 100%)' }}>
+            <div className="grid md:grid-cols-[1fr_auto] gap-0">
+              <div className="p-8 md:p-12">
+                <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest px-3 py-1.5 rounded-full mb-5"
+                  style={{ background: '#4a2d8a18', color: '#4a2d8a' }}>
+                  <svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Österreich 2027
+                </div>
+                <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4" style={{ color: '#1a1040' }}>
+                  Finanzbildung wird Pflichtfach.<br />
+                  <span style={{ color: '#4a2d8a' }}>Skills-UP! ist jetzt bereit.</span>
+                </h2>
+                <p className="font-body text-text-muted text-base leading-relaxed mb-6 max-w-xl">
+                  Ab 2027 verankert Österreich Finanzbildung verbindlich im Lehrplan aller Schultypen (Nationale Finanzbildungsstrategie). Skills-UP! ist bereits heute lehrplankonform dokumentiert und trägt das Gütesiegel Lern-Apps, damit Ihre Schule nicht auf den letzten Drücker vorbereiten muss.
+                </p>
+                <div className="flex flex-wrap gap-3 mb-6">
+                  {[
+                    'Lehrplanbezug für jedes Modul dokumentiert',
+                    'Gütesiegel Lern-Apps & Teil der nationalen Finanzbildungsstrategie',
+                    'Sofort einsetzbar: kein Umstieg nötig',
+                  ].map((t) => (
+                    <span key={t} className="flex items-center gap-1.5 text-xs font-body font-600 px-3 py-1.5 rounded-full bg-white border border-primary-light/20"
+                      style={{ color: '#4a2d8a' }}>
+                      <svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <a href="#kontakt"
+                  className="inline-flex items-center gap-2 font-body font-700 text-sm px-6 py-3 rounded-xl text-white transition-all hover:opacity-90 active:scale-95"
+                  style={{ background: 'linear-gradient(135deg, #4a2d8a, #2a8a76)' }}>
+                  Jetzt vorausplanen: Demo anfragen
+                  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+              <div className="hidden md:flex flex-col items-center justify-center p-12 gap-2"
+                style={{ background: 'rgba(74,45,138,0.06)', borderLeft: '1px solid rgba(74,45,138,0.1)' }}>
+                <span className="font-heading font-800 text-6xl" style={{ color: '#4a2d8a' }}>2027</span>
+                <span className="font-body text-xs font-700 uppercase tracking-widest text-center" style={{ color: '#4a2d8a88' }}>Finanzbildung<br />Pflichtfach AT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="unternehmen" className="py-14 md:py-24 max-w-7xl mx-auto px-6">
+        <div className="rounded-3xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #1a1040 0%, #2d1b69 60%, #0f3d2d 100%)' }}>
+          <div className="p-10 md:p-16 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest px-4 py-2 rounded-full mb-6"
+                style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.15)' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                </svg>
+                Für Unternehmen
+              </div>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-5 leading-tight">
+                Lehrlingsprogramm Österreich:<br /><span style={{ color: '#9b7ed4' }}>Finanzbildung als Employer Branding.</span>
+              </h2>
+              <p className="text-white/70 font-body text-lg leading-relaxed mb-8">
+                Investieren Sie in die Finanzkompetenzen Ihrer Lehrlinge und Nachwuchskräfte. Skills-UP! ist erprobt in Lehrlingsprogrammen von TGW Logistics und OVOS und passt sich an Ihre Unternehmenskultur an.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {[
+                  'Lehrlingsprogramme mit praxisnahem Finanzwissen',
+                  'Employer Branding durch gesellschaftlichen Mehrwert',
+                  'Maßgeschneiderte Module für Ihre Branche',
+                  'Corporate-Social-Responsibility nachweisbar machen',
+                ].map((p) => (
+                  <li key={p} className="flex items-start gap-3 text-white/75 font-body text-sm">
+                    <svg className="shrink-0 mt-0.5" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+              <a href="#kontakt"
+                className="inline-flex items-center gap-2 font-body font-700 text-sm px-6 py-3.5 rounded-xl transition-all hover:opacity-90 active:scale-95"
+                style={{ background: 'linear-gradient(135deg, #6b4db0 0%, #2a8a76 100%)', color: '#fff' }}>
+                Kooperation anfragen
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+            <div className="space-y-4">
+              <p className="text-white/40 text-xs font-body font-700 uppercase tracking-widest mb-5">Bereits als Partner dabei</p>
+              {[
+                { name: 'TGW Logistics', sub: 'Lehrlingsprogramm Finanzkompetenzen', icon: '◈' },
+                { name: 'OVOS', sub: 'Bildungspartnerschaft & Kooperation', icon: '◈' },
+                { name: 'Bildungsdirektion Burgenland', sub: 'Regionale Bildungspartnerschaft', icon: '◈' },
+              ].map((r) => (
+                <div key={r.name} className="flex items-center gap-4 p-4 rounded-2xl"
+                  style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <span className="text-xl" style={{ color: '#9b7ed4' }}>{r.icon}</span>
+                  <div>
+                    <p className="font-heading font-700 text-white text-sm">{r.name}</p>
+                    <p className="font-body text-white/50 text-xs">{r.sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          AKTUELLES: Blog-Teaser
+      ══════════════════════════════════════════════════ */}
+      <section id="aktuelles" className="py-16 md:py-24 max-w-7xl mx-auto px-6">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+          <div>
+            <p className="font-body text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#4a2d8a' }}>Aktuelles</p>
+            <h2 className="font-heading text-3xl md:text-4xl font-bold" style={{ color: '#1a1040' }}>
+              Neues aus Verein und Finanzbildung
+            </h2>
+          </div>
+          <Link href="/aktuelles"
+            className="shrink-0 font-body text-sm font-bold px-5 py-2.5 rounded-xl border transition-all hover:opacity-80"
+            style={{ color: '#4a2d8a', borderColor: '#4a2d8a' }}>
+            Alle Beiträge →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              href: '/aktuelles/l2bgreen-lernplattform-oeffentlich',
+              tag: 'Vereinsprojekt',
+              tagColor: '#1E6B5B',
+              date: 'November 2026',
+              title: 'L2BGreen: Lernplattform für grünes Unternehmertum ist öffentlich',
+              teaser: 'Das Erasmus+ Projekt mit unserem Verein als Partner öffnet seine Lernumgebung, mit Business Cases und dem KI-Lernassistenten Gaia.',
+            },
+            {
+              href: '/aktuelles/wirkungsbericht-skills-up',
+              tag: 'Wirkung',
+              tagColor: '#A84E12',
+              date: 'November 2026',
+              title: 'Was Skills-UP! bewirkt: der Wirkungsbericht ist öffentlich',
+              teaser: 'Wirkungslogik, sieben Befunde und alle Kennzahlen je Quartal. Der Bericht zeigt offen, was gelingt und was noch fehlt.',
+            },
+            {
+              href: '/aktuelles/finanzbildung-pflichtfach-2027',
+              tag: 'Bildungspolitik',
+              tagColor: '#4a2d8a',
+              date: 'März 2025',
+              title: 'Finanzbildung wird Pflichtfach: was das für Schulen bedeutet',
+              teaser: 'Ab 2027 ist Finanzbildung im Lehrplan verankert. Was ändert sich konkret, und wie können Schulen jetzt vorbereitet sein?',
+            },
+          ].map((post) => (
+            <Link key={post.href} href={post.href}
+              className="group flex flex-col rounded-2xl border border-gray-100 bg-white overflow-hidden hover:shadow-lg transition-all hover:-translate-y-0.5">
+              <div className="p-6 flex flex-col flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-body font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
+                    style={{ background: post.tagColor + '14', color: post.tagColor }}>
+                    {post.tag}
+                  </span>
+                  <span className="text-xs font-body text-gray-600">{post.date}</span>
+                </div>
+                <h3 className="font-heading text-lg font-bold leading-snug mb-3 group-hover:text-purple-800 transition-colors"
+                  style={{ color: '#1a1040' }}>
+                  {post.title}
+                </h3>
+                <p className="font-body text-sm text-gray-600 leading-relaxed flex-1">{post.teaser}</p>
+                <div className="mt-5 flex items-center gap-1.5 text-sm font-body font-bold transition-colors"
+                  style={{ color: post.tagColor }}>
+                  Weiterlesen
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-0.5 transition-transform"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-8 p-6 rounded-2xl flex flex-col sm:flex-row items-center gap-4 justify-between"
+          style={{ background: 'linear-gradient(135deg, #f3f1f9 0%, #e6f4f1 100%)', border: '1px solid rgba(74,45,138,0.1)' }}>
+          <div>
+            <p className="font-heading font-bold text-base" style={{ color: '#1a1040' }}>Wirkungsbericht Skills-UP!</p>
+            <p className="font-body text-sm text-gray-600 mt-0.5">Wirkungslogik, Befunde und alle Kennzahlen je Quartal, frei zugänglich.</p>
+          </div>
+          <Link href="/wirkungsmessung"
+            className="shrink-0 font-body text-sm font-bold px-5 py-2.5 rounded-xl text-white transition-all hover:opacity-90"
+            style={{ background: 'linear-gradient(135deg, #4a2d8a, #2a8a76)' }}>
+            Zum Wirkungsbericht
+          </Link>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          NEWSLETTER / LEAD-MAGNET
+      ══════════════════════════════════════════════════ */}
+      <NewsletterSignup />
+
+      {/* ══════════════════════════════════════════════════
+          FÖRDERUNG
+      ══════════════════════════════════════════════════ */}
+      <section className="py-16" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #e6f4f1 100%)' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #065f46 0%, #059669 100%)' }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h3 className="font-heading text-xl font-bold mb-2" style={{ color: '#1a5c4e' }}>Gefördert durch starke Partner</h3>
+              <p className="text-text-muted font-body text-sm leading-relaxed">
+                Skills-UP! wird von der <strong>MEGA Bildungsstiftung</strong> und im Rahmen der <strong>Nationalen Finanzbildungsstrategie</strong> unterstützt.
+                Sprecht uns an. Wir finden gemeinsam ein leistbares Modell für eure Schule.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 justify-center md:justify-end shrink-0">
+              {['MEGA Bildungsstiftung', 'Finanzbildungsstrategie', 'Jährliche Schullizenz, gestaffelt nach Klassenzahl. Förderung möglich.'].map((f) => (
+                <span key={f} className="px-3 py-1.5 rounded-full text-xs font-body font-700 bg-emerald-50 text-emerald-700 border border-emerald-100">{f}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          TESTIMONIALS
+      ══════════════════════════════════════════════════ */}
+      <section className="py-14 md:py-24 max-w-7xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest text-status-teal bg-status-teal-light px-4 py-2 rounded-full mb-5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Stimmen aus der Praxis
+          </div>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold" style={{ color: '#1a1040' }}>
+            Echtes Feedback. Keine Hochglanzbroschüre.
+          </h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            {
+              quote: 'Aufgrund von Skills-UP! hab ich es endlich geschafft, für den Führerschein zu sparen. Zum ersten Mal hab ich verstanden, wo mein Geld eigentlich hingeht.',
+              name: 'Lisa M.',
+              role: 'Schülerin, 17 Jahre',
+              initials: 'LM',
+              color: '#4a2d8a',
+            },
+            {
+              quote: 'Endlich Material, das ich ohne Vorbereitung sofort einsetzen kann. Die Simulationen nehmen mir die Erklärarbeit ab. Im Dashboard sehe ich auf einen Blick, wo meine Klasse steht.',
+              name: 'Mag. Eva R.',
+              role: 'Lehrerin, BHS Burgenland',
+              initials: 'ER',
+              color: '#1E6B5B',
+            },
+            {
+              quote: 'Die Gehaltsverhandlungs-Simulation war ein Augenöffner. Meine Klassen reden jetzt über Kollektivvertrag und Nettolohn. Themen, die vorher kein Thema waren.',
+              name: 'Mag. Thomas K.',
+              role: 'Lehrer, HAK Linz',
+              initials: 'TK',
+              color: '#4a2d8a',
+            },
+          ].map((t) => (
+            <div key={t.name} className="bg-white rounded-2xl p-7 shadow-card border border-gray-100 flex flex-col">
+              <svg className="mb-4" width="28" height="20" viewBox="0 0 28 20" fill={t.color} opacity="0.2">
+                <path d="M0 20V12C0 5.373 3.82 1.507 11.46 0l1.54 2.4C9.547 3.227 7.667 5.053 7 8h5V20H0zm16 0V12C16 5.373 19.82 1.507 27.46 0L29 2.4C25.547 3.227 23.667 5.053 23 8h5V20H16z"/>
+              </svg>
+              <p className="text-text-secondary font-body text-sm leading-relaxed flex-1 italic">{t.quote}</p>
+              <div className="flex items-center gap-3 mt-5 pt-5 border-t border-gray-100">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-body font-700 shrink-0"
+                  style={{ background: t.color }}>
+                  {t.initials}
+                </div>
+                <div>
+                  <p className="font-heading font-700 text-sm text-text-primary">{t.name}</p>
+                  <p className="text-xs font-body text-text-muted">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          FAQ
+      ══════════════════════════════════════════════════ */}
+      <section className="py-14 md:py-24" style={{ background: 'linear-gradient(135deg, #f3f1f9 0%, #e6f4f1 100%)' }}>
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <div className="flex justify-center mb-4">
+              <Image src="/capybara-mascot.png" alt="" width={72} height={72} className="drop-shadow-lg" aria-hidden="true" />
+            </div>
+            <div className="inline-flex items-center gap-2 text-xs font-body font-700 uppercase tracking-widest text-primary-medium bg-white px-4 py-2 rounded-full mb-5 shadow-sm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Häufige Fragen
+            </div>
+            <h2 className="font-heading text-4xl font-bold" style={{ color: '#1a1040' }}>
+              Du hast Fragen. Wir haben Antworten.
+            </h2>
+          </div>
+          <FaqAccordion />
+          <div className="text-center mt-8">
+            <Link href="/faq"
+              className="inline-flex items-center gap-2 text-sm font-body font-700 text-primary-dark hover:text-primary-medium transition-colors">
+              Alle 100 Fragen &amp; Antworten für Lehrkräfte ansehen
+              <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+              </svg>
+            </Link>
+            <p className="text-sm font-body text-text-muted mt-3">
+              Oder{' '}
+              <a href="#kontakt" className="text-primary-medium font-600 hover:text-primary-dark transition-colors">
+                schreib uns direkt.
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          ÜBER UNS TEASER: with team photo
+      ══════════════════════════════════════════════════ */}
+      <section className="py-20" style={{ background: 'linear-gradient(135deg, #f3f1f9 0%, #e6f4f1 100%)' }}>
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-white rounded-3xl p-8 md:p-14 shadow-card grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <p className="text-xs font-body font-700 uppercase tracking-widest text-primary-medium mb-3">Das Team</p>
+              <h2 className="font-heading text-3xl font-bold mb-5" style={{ color: '#1a1040' }}>
+                Menschen hinter Skills-UP!
+              </h2>
+              <p className="text-text-muted font-body text-lg leading-relaxed mb-6">
+                Unser Team kommt aus der Praxis: aus Bildung, Wirtschaft und Finanzpädagogik. Wir wissen, was Jugendliche für echte Finanzentscheidungen brauchen, und was Lehrkräften den Alltag erleichtert.
+              </p>
+              <Link href="/ueber-uns"
+                className="inline-flex items-center gap-2 text-sm font-body font-700 text-primary-dark hover:text-primary-medium transition-colors">
+                Das gesamte Team kennenlernen
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </Link>
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-md">
+              <Image
+                src="/fotos/skillsUP-8.jpg"
+                alt="Marina Winkler, MA, Skills-UP! Team"
+                width={600}
+                height={288}
+                className="w-full h-72 object-cover"
+                style={{ objectPosition: 'center 20%' }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════
+          CTA + CONTACT
+      ══════════════════════════════════════════════════ */}
+      <section id="kontakt" className="py-16 md:py-28 relative overflow-hidden">
+        <div className="absolute inset-0 animate-gradient-shift pointer-events-none"
+          style={{ background: 'linear-gradient(135deg, #4a2d8a 0%, #6b4db0 45%, #2a8a76 100%)', backgroundSize: '200% 200%' }} />
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(42,138,118,0.3) 0%, transparent 70%)' }} />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+
+          {/* Maskottchen */}
+          <div className="flex justify-center mb-8">
+            <Image src="/capybara-mascot.png" alt="Skills-UP! Maskottchen" width={110} height={110}
+              className="drop-shadow-2xl" />
+          </div>
+
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 text-white/70 text-xs font-body font-700 uppercase tracking-widest px-4 py-2 rounded-full mb-6"
+            style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)' }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            Wir antworten innerhalb von 24 Stunden
+          </div>
+
+          <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Bereit für den nächsten Schritt?
+          </h2>
+          <p className="text-white/70 font-body text-lg mb-10 leading-relaxed max-w-2xl mx-auto">
+            Skills-UP! an Ihrer Schule einsetzen, eine Kooperation starten oder einfach mehr erfahren? Schreiben Sie uns: Marina antwortet persönlich.
+          </p>
+
+          {/* Eingebettetes Kontaktformular */}
+          <div className="text-left mb-14 rounded-2xl p-8 max-w-xl mx-auto"
+            style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}>
+            <ContactForm light />
+          </div>
+
+          {/* Drei Kontexte */}
+          <div className="grid sm:grid-cols-3 gap-4 text-left">
+            {[
+              {
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>,
+                title: 'Für Schulen',
+                text: 'Programm vorstellen, Demo vereinbaren oder direkt mit dem Rollout starten.',
+                subject: 'Anfrage%20f%C3%BCr%20unsere%20Schule',
+              },
+              {
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>,
+                title: 'Für Unternehmen',
+                text: 'Lehrlingsprogramm, Employer Branding oder Kooperationsanfrage.',
+                subject: 'Kooperationsanfrage%20Unternehmen',
+              },
+              {
+                icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>,
+                title: 'Allgemeine Fragen',
+                text: 'Pressearbeit, Förderungen, Partnerschaften oder einfach Hallo sagen.',
+                subject: 'Allgemeine%20Anfrage',
+              },
+            ].map((k) => (
+              <a
+                key={k.title}
+                href={`mailto:info@example.invalid?subject=${k.subject}`}
+                className="group rounded-2xl p-5 transition-all hover:-translate-y-1"
+                style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}
+              >
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-3 text-white"
+                  style={{ background: 'rgba(255,255,255,0.12)' }}>
+                  {k.icon}
+                </div>
+                <p className="font-heading font-700 text-white text-sm mb-1">{k.title}</p>
+                <p className="font-body text-white/55 text-sm leading-relaxed">{k.text}</p>
+                <div className="flex items-center gap-1 mt-3 text-white/40 group-hover:text-white/80 transition-colors text-xs font-body font-700">
+                  E-Mail öffnen
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      </main>
+      <SiteFooter />
+      <BackToTop />
+    </div>
+  )
+}

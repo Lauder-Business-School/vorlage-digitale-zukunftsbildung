@@ -1,0 +1,8 @@
+.next/
+node_modules/
+.env*
+!.env.example
+out/
+.DS_Store
+.vercel
+public/video/

@@ -1,0 +1,220 @@
+import type { Metadata } from 'next'
+import SchulPage from '@/components/SchulPage'
+
+export const metadata: Metadata = {
+  title: 'Finanzbildung HLW & Fachschulen Österreich | Skills-UP!',
+  description: 'Skills-UP! für HLW, HLT und wirtschaftliche Fachschulen in Österreich: Finanzbildung trifft Alltag, Konsum und Lebensführung. Lehrplankonform, sofort einsetzbar.',
+  alternates: { canonical: 'https://www.example.invalid/schulen/hlw' },
+  openGraph: {
+    title: 'Finanzbildung für HLW & Fachschulen – Skills-UP! Österreich',
+    description: 'Praxisnahe Finanzbildung für HLW und wirtschaftliche Fachschulen. Lehrplankonform, sofort einsetzbar.',
+    url: 'https://www.example.invalid/schulen/hlw',
+    images: ['/fotos/skillsUP-1.jpg'],
+  },
+  twitter: { card: 'summary_large_image' },
+}
+
+const icon = (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+    <polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+)
+
+const bookIcon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+const alertIcon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+const shieldIcon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+const homeIcon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+const playIcon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+const chartIcon = <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+
+export default function HlwPage() {
+  return (
+    <SchulPage
+      name="HLW & Fachschulen"
+      kurzname="HLW"
+      gradient="linear-gradient(135deg, #2d1b69 0%, #4a2d8a 60%, #6b4db0 100%)"
+      farbe="#4a2d8a"
+      farbeHell="#f3f1f9"
+      schulstufen="9.–13. Schulstufe"
+      lehrplanFach="Ernährung & Haushalt · Wirtschaft · Projektunterricht · BOBI"
+      icon={icon}
+      lehrerProblem="Ich unterrichte Haushaltsführung, Ernährung und Konsum, aber wenn ich frage, wie sie ihr Budget planen, schauen mich viele in der Klasse ratlos an."
+      intro="HLW und wirtschaftliche Fachschulen haben Alltagskompetenz im Blut. Skills-UP! ergänzt diese Stärke um das, was Jugendliche direkt nach der Schule brauchen: eine klare Vorstellung davon, wie sie mit Geld umgehen, im Haushalt, beim Einkauf und bei größeren Entscheidungen."
+      lehrplanPassung={[
+        {
+          fach: 'Haushaltswirtschaft & Ernährung',
+          kontext: 'Lebensmittelbudget, Haushaltsplanung, Preis-Leistungs-Vergleich. Skills-UP! vertieft diese Themen mit interaktiven Budgetsimulationen und realen Konsumentscheidungen.',
+        },
+        {
+          fach: 'Wirtschaft und Recht',
+          kontext: 'Verträge, Konsumentenschutz, Ratenkauf, Gewährleistung. Skills-UP! macht diese rechtlich-wirtschaftlichen Themen durch erlebbare Szenarien greifbar.',
+        },
+        {
+          fach: 'BOBI (Berufsorientierung & Bildungsinfo)',
+          kontext: 'Was kommt nach der HLW? Welches Einkommen ist realistisch? Skills-UP! verbindet Berufsorientierung mit finanzieller Lebensplanung.',
+        },
+        {
+          fach: 'Projektunterricht',
+          kontext: '"Nachhaltig wirtschaften, mein Familienbudget im Öko-Check" als Jahresprojekt: Skills-UP! liefert die Datengrundlage, Methoden und digitale Auswertung.',
+        },
+      ]}
+      unterrichtsEinheiten={[
+        {
+          schritt: 'Einstieg: Supermarkt-Falle',
+          was: 'Simulierter Wocheneinkauf: Die Jugendlichen kaufen für eine Person mit 200 € Budget ein, mit versteckten Sonderangeboten, Impulsprodukten und saisonalen Preisschwankungen. Das ist Konsumerziehung zum Anfassen.',
+          zeitMinuten: 10,
+        },
+        {
+          schritt: 'Haushaltsbudget erstellen',
+          was: 'Auf Basis eines realistischen HLW-Einstiegsgehalts erstellen die Jugendlichen ihren ersten Monatsplan: Miete, Lebensmittel, Transport, Kleidung, Freizeit, Sparen. Die App führt sie durch alle Kategorien.',
+          zeitMinuten: 25,
+        },
+        {
+          schritt: 'Nachhaltig konsumieren, was kostet das?',
+          was: 'Das Modul vergleicht konventionelle und nachhaltige Konsumentscheidungen, nicht moralisch, sondern finanziell. Was kostet Bio langfristig? Was kostet Fast Fashion wirklich? Ideal für HLW-Profil.',
+          zeitMinuten: 10,
+        },
+        {
+          schritt: 'Reflexion',
+          was: 'Die Jugendlichen dokumentieren drei Entscheidungen, die sie nach dieser Stunde anders treffen würden. Das geht direkt in die App, du siehst die Antworten im Dashboard.',
+          zeitMinuten: 5,
+        },
+      ]}
+      module={[
+        { titel: 'Finanzplanung', lernziel: 'Haushaltsbudget erstellen: Fixkosten vs. variable Kosten, 50-30-20-Regel, Sonderzahlungen einplanen, die 5 häufigsten Budgetfehler vermeiden.', dauer: '15 oder 50 Min', level: 'Einstieg', kategorie: 'Budgetplanung', icon: bookIcon },
+        { titel: 'Konsumfallen', lernziel: 'Psychologische Kauftrigger (FOMO, Anchoring, Scarcity) erkennen, und verstehen, wie Werbung und Dark Patterns Kaufentscheidungen steuern.', dauer: '15 oder 50 Min', level: 'Einstieg', kategorie: 'Konsumpsychologie', icon: alertIcon },
+        { titel: 'Ratenkauf & BNPL', lernziel: 'Klarna, Afterpay und Co. kritisch bewerten: Effektivzins berechnen, Widerrufsrecht kennen, KSV-Eintrag verstehen und vermeiden.', dauer: '15 oder 50 Min', level: 'Einstieg', kategorie: 'Konsumentenschutz', icon: alertIcon },
+        { titel: 'Versicherungen verstehen', lernziel: 'Haushaltsversicherung, Haftpflicht, Kfz-Pflicht, was braucht man wirklich? Selbstbehalt und Prämien sinnvoll vergleichen.', dauer: '15 oder 50 Min', level: 'Einstieg', kategorie: 'Versicherungen', icon: shieldIcon },
+        { titel: 'Schulden & Geld leihen', lernziel: 'Warnsignale für problematische Schulden früh erkennen, Inkasso-Rechte kennen. AK und Schuldnerberatung als kostenlose Hilfe.', dauer: '15 oder 50 Min', level: 'Einstieg', kategorie: 'Schuldenprävention', icon: chartIcon },
+        { titel: 'Risiko & Krisen', lernziel: 'Notgroschen aufbauen, Eskalationskette von Verzug bis Pfändung kennen. Krisenbudget für unerwartete Ausgaben.', dauer: '15 oder 50 Min', level: 'Einstieg', kategorie: 'Krisenmanagement', icon: chartIcon },
+      ]}
+      simulationen={[
+        { titel: 'Konsumfallen-Parcours', untertitel: 'FOMO, Dark Patterns, künstliche Knappheit und Abo-Fallen erleben. Konsumentenschutz nach FAGG kennenlernen.', dauer: '15–20 Min', icon: playIcon },
+        { titel: 'Versicherungs-Entscheider', untertitel: 'Interaktive Szenarien: Haushaltsversicherung, Haftpflicht, Kfz, welche Versicherung braucht man wirklich?', dauer: '15–20 Min', icon: shieldIcon },
+        { titel: 'Erste eigene Wohnung', untertitel: 'Kaution, Provision, Betriebskosten, Mietvertrag prüfen, alle Kosten einer Wohnung realistisch kalkulieren.', dauer: '20–30 Min', icon: homeIcon },
+        { titel: 'Kredit-Falle', untertitel: 'Konsumkredit, Ratenkauf, BNPL: Fallstricke erkennen, Gesamtkosten berechnen, VKrG-Rechte nutzen.', dauer: '15–20 Min', icon: alertIcon },
+      ]}
+      themen={[
+        'Haushaltsbudget planen',
+        'Konsum & Lebensmittel',
+        'Nachhaltig wirtschaften',
+        'Konsumfallen & Werbung',
+        'Verträge & Konsumentenschutz',
+        'Ratenkauf & Abos',
+        'Schuldenfallen erkennen',
+        'Sparziele formulieren',
+        'Finanzielle Lebensplanung',
+        'Tourismus & Saisoneinkommen',
+        'Digitale Zahlungsmittel',
+        'Bewusste Kaufentscheidungen',
+        'Energiekosten & Haushalt',
+        'Versicherungen im Alltag',
+      ]}
+      features={[
+        {
+          titel: 'Konsum-Simulationen',
+          nutzenfuerLehrer: 'Die Jugendlichen treffen im geschützten Raum reale Konsumentscheidungen. Supermarkt, Online-Shop, Mietvertrag, und sehen sofort die finanziellen Konsequenzen. Kein Theorievortrag nötig.',
+          icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>,
+        },
+        {
+          titel: 'Haushalts-Budget-Modul',
+          nutzenfuerLehrer: 'Die Jugendlichen planen ihren Monatshaushalt mit realen Kategorien und einem realistischen Einstiegslohn. Das Ergebnis ist direkt sichtbar, ideal als Grundlage für eine Unterrichtsdiskussion.',
+          icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>,
+        },
+        {
+          titel: 'Nachhaltigkeits-Modul',
+          nutzenfuerLehrer: 'Das Modul verbindet finanzielle und ökologische Entscheidungen, ohne zu moralisieren. Perfekt für HLW-Profil: Was kostet Bio wirklich? Zahlt sich Energiesparen aus? Die App liefert die Zahlen.',
+          icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
+        },
+        {
+          titel: 'Peer-Videos mit Alltagsbezug',
+          nutzenfuerLehrer: 'Gleichaltrige sprechen über Erfahrungen mit Werbung, Ratenkauf oder dem ersten eigenen Haushalt. Das trifft Jugendliche an der HLW direkt in ihrer Lebenswelt, und erzeugt echte Diskussionen.',
+          icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>,
+        },
+      ]}
+      lehrerZitat={{
+        text: 'Ich hatte das Thema Haushaltsführung schon tausendmal unterrichtet. Mit Skills-UP! war es das erste Mal, dass Jugendliche danach sagten: Das hat mich persönlich betroffen.',
+        person: 'Lehrerin für Haushaltswirtschaft, HLW Graz',
+      }}
+      lehrerFoto="/fotos/lehrer/hlw.png"
+      gruenderStatement="Wer an der HLW Haushaltsführung und Wirtschaft lehrt, kommt an persönlicher Finanzplanung nicht vorbei. Skills-UP! macht diesen Zusammenhang für Jugendliche konkret erlebbar, mit österreichischen Alltagsszenarien, die sie direkt betreffen."
+      lernpfad={[
+        {
+          stufe: 'Haushaltsgrundlagen',
+          badge: 'Level 1',
+          icon: homeIcon,
+          module: ['Finanzplanung', 'Konsum & Haushalt'],
+          zeitMinuten: 50,
+          ergebnis: 'Vollständiges Haushaltsbudget erstellen und Fixkosten vs. variable Kosten unterscheiden.',
+        },
+        {
+          stufe: 'Konsumentenschutz',
+          badge: 'Level 2',
+          icon: alertIcon,
+          module: ['Konsumfallen', 'Ratenkauf & BNPL', 'Versicherungen verstehen'],
+          zeitMinuten: 75,
+          ergebnis: 'Dark Patterns erkennen, Kreditkosten berechnen und die richtigen Versicherungen auswählen.',
+        },
+        {
+          stufe: 'Lebensplanung',
+          badge: 'Level 3',
+          icon: shieldIcon,
+          module: ['Erste eigene Wohnung', 'Sparen & Geldentscheidungen'],
+          zeitMinuten: 60,
+          ergebnis: 'Wohnkosten vollständig kalkulieren (Kaution, Provision, Betriebskosten) und Sparziele setzen.',
+        },
+      ]}
+      highlightSimulation={{
+        titel: 'Veranstaltungsbudget-Planer',
+        untertitel: 'Catering, Personal, Location, Technik: Ein Event von 80 Personen vollständig kalkulieren, mit Deckungsbeitrag und Risikopuffer.',
+        dauer: '20–30 Min',
+        icon: bookIcon,
+        szenario: 'Deine Klasse plant ein Schulcafé für den Tag der offenen Tür: 80 Gäste, Fingerfood, Kaffee. Das Budget steht noch nicht fest. Kannst du es gedeckt halten und trotzdem Überschuss machen?',
+        schritte: [
+          { label: 'Kostenarten strukturieren', beschreibung: 'Fixkosten (Personal-Grundzeit, Miete) vs. variable Kosten (Zutaten, Verbrauchsmaterial) erfassen.' },
+          { label: 'Mengenplanung', beschreibung: 'Einkaufsmengen für 80 Personen berechnen: Die App rechnet Verderb-Puffer und Lieferantenvergleich gleich mit.' },
+          { label: 'Deckungsbeitrag berechnen', beschreibung: 'Welcher Preis pro Person deckt die Kosten? Welcher erwirtschaftet einen Überschuss? Die Klasse setzt den Preis selbst.' },
+          { label: 'Risikoanalyse', beschreibung: '20 Absagen kurzfristig: Was passiert mit dem Budget? Die Simulation zeigt, wie Fixkosten den Break-Even verschieben.' },
+        ],
+        ergebnis: 'Die Jugendlichen beherrschen Event-Kalkulation mit Deckungsbeitrag, Risikopuffer und Preisgestaltung, direkt anwendbar in Tourismus und Gastgewerbe.',
+        mockUI: [
+          { zeile: 'Schulcafé-Kalkulation', typ: 'label' },
+          { zeile: 'Gästeanzahl|80 Personen', typ: 'wert' },
+          { zeile: 'Zutaten & Einkauf|− 640,00 €', typ: 'wert' },
+          { zeile: 'Personal (4 h)|− 280,00 €', typ: 'wert' },
+          { zeile: 'Verbrauchsmaterial|− 80,00 €', typ: 'wert' },
+          { zeile: 'divider', typ: 'divider' },
+          { zeile: 'Mindestpreis/Person|12,50 €', typ: 'wert' },
+          { zeile: 'Gewählter Preis|15,00 €', typ: 'wert' },
+          { zeile: 'divider', typ: 'divider' },
+          { zeile: 'Überschuss bei 80 Gästen|+ 200,00 €', typ: 'highlight' },
+          { zeile: 'Kostendeckung|83 %|83%', typ: 'bar' },
+        ],
+      }}
+      faqs={[
+        { q: 'Welche HLW-Fächer eignen sich für Skills-UP!?', a: 'Betriebs- und Volkswirtschaftliche Grundlagen (BWK), Geographie, Geschichte und Politische Bildung (GGP) sowie der Klassenvorstand. Die Module passen nahtlos in bestehende Stundenpläne.' },
+        { q: 'Warum ist Finanzbildung an der HLW besonders wichtig?', a: 'Viele starten nach der HLW in sozialen oder touristischen Berufen mit geringeren Einstiegsgehältern. Finanzbildung gibt ihnen Werkzeuge, trotzdem finanziell stabil und selbstständig zu leben.' },
+        { q: 'Gibt es Module zu Themen wie Karenz oder Haushalt?', a: 'Ja. Skills-UP! hat Module zu Haushaltsbudget, Karenzgeld, Familienplanung und Lebenshaltungskosten: Themen, die für Jugendliche an der HLW besonders relevant sind.' },
+      ]}
+      verwandteSchultypen={[
+        { slug: 'bafep', label: 'BAfEP & BASOP', teaser: 'Für angehende pädagogische Fachkräfte: Finanzbildung für Beruf und Familienleben.' },
+        { slug: 'ahs', label: 'AHS-Oberstufe', teaser: 'Breite Allgemeinbildung trifft persönliche Finanzkompetenz: GWK und PuG.' },
+        { slug: 'hak', label: 'HAK & HAS', teaser: 'Wirtschaftliche Grundlagen persönlich anwenden: Lohnzettel, Budget, Kredit.' },
+      ]}
+      testimonials={[
+        {
+          text: 'Jugendliche an der HLW stehen früh vor dem Berufseinstieg im Tourismus oder Sozialbereich: mit unterdurchschnittlichen Einstiegsgehältern. Skills-UP! gibt ihnen Werkzeuge, trotzdem finanziell stabil zu starten.',
+          person: 'Mag. Andrea L.',
+          rolle: 'GGP-Lehrerin',
+          schule: 'HLW Steiermark',
+        },
+        {
+          text: 'Die Simulation zum Haushaltsbudget war der Moment, wo alle ruhig wurden. Plötzlich war klar: Mit 1.600 € netto in Wien wohnen ist ein echtes Rechenrätsel. Das hat gesessen.',
+          person: 'Christoph R.',
+          rolle: 'Klassenvorstand HLW',
+        },
+      ]}
+    />
+  )
+}

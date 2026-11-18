@@ -1,0 +1,43 @@
+# Skills-UP! – Finanzbildung für österreichische Schulen
+
+> Skills-UP! ist ein fertiges Unterrichtsprogramm für Finanzbildung, entwickelt für Jugendliche ab 15 Jahren an österreichischen Schulen. Betrieben vom gemeinnützigen Verein zur Entwicklung der digitalen Zukunftsbildung, Sitz in Wien.
+
+Skills-UP! bietet 12 lehrplankonforme Module, über 10 interaktive Praxissimulationen und ein Lehrkräfte-Dashboard. Das Programm ist browser-basiert, DSGVO-konform und ohne IT-Aufwand sofort einsetzbar. Es richtet sich an Lehrkräfte der AHS-Oberstufe, HAK, HTL, HLW, BAfEP, BASOP, PTS und Berufsschulen.
+
+## Auszeichnungen & Zertifizierungen
+
+- Top-3-Projekt der MEGA Bildungsmillion 2025 (unter hunderten Einreichungen österreichweit)
+- Teil der Nationalen Finanzbildungsstrategie der österreichischen Bundesregierung
+- Gütesiegel für Qualitäts-Lern-Apps (pädagogisch und technisch geprüft)
+- Pädagogisch validiert durch die Hochschule Burgenland
+
+## Gründerinnen und Gründer
+
+- **Marina Winkler, MA** – Vereinsleiterin und pädagogische Leiterin, ehemalige Lehrerin
+- **Dr. Stefan Bauer** – Vorstand, Finanzexperte
+
+## Schultypen
+
+- [AHS-Oberstufe](https://www.example.invalid/schulen/ahs) – GWK, PuG, Mathematik, Wahlpflichtfach
+- [HAK & HAS](https://www.example.invalid/schulen/hak) – Betriebswirtschaft, Rechnungswesen, Volkswirtschaft
+- [HTL](https://www.example.invalid/schulen/htl) – Allgemeinbildung, Mathematik, Projektunterricht
+- [HLW & Fachschulen](https://www.example.invalid/schulen/hlw) – Ernährung, Gesundheit, Konsum, Lebensführung
+- [BAfEP & BASOP](https://www.example.invalid/schulen/bafep) – Pädagogik, Psychologie, Hort und Kindergarten
+- [PTS](https://www.example.invalid/schulen/pts) – Berufsorientierung, Lebenskunde, Soziales Lernen
+- [Berufsschule](https://www.example.invalid/schulen/berufsschule) – Politische Bildung, Lebenskunde, Projektunterricht
+
+## Inhalte & Module
+
+Themen: Gehalt & Lohnzettel, Brutto-Netto, Budgetplanung, Sparen & Zinseszins, Ratenkauf & BNPL, Konsumfallen & FOMO, Schuldenprävention, Notgroschen, erste Wohnung, Krypto & Investieren, digitale Zahlungsmittel, Versicherungen, Gehaltsverhandlung, Steuern & Negativsteuer.
+
+Simulationen: Gehaltsverhandlung, Budgetplanung, Bank-Simulation, Konsumfallen-Parcours, erste Wohnung, Aktiendepot eröffnen.
+
+## Kontakt
+
+- Website: https://www.example.invalid
+- E-Mail: kontakt@example.invalid
+- Verein: Verein zur Entwicklung der digitalen Zukunftsbildung, Wien, Österreich
+
+## Sitemap
+
+- https://www.example.invalid/sitemap.xml
